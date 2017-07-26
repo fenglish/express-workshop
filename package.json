@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/fenglish/express-workshop/issues"
   },
-  "homepage": "https://github.com/fenglish/express-workshop#readme"
+  "homepage": "https://github.com/fenglish/express-workshop#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
 }
