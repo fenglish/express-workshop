@@ -1,0 +1,19 @@
+{
+  "name": "express-workshop",
+  "version": "1.0.0",
+  "description": "practice",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fenglish/express-workshop.git"
+  },
+  "author": "Asuka Ochi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fenglish/express-workshop/issues"
+  },
+  "homepage": "https://github.com/fenglish/express-workshop#readme"
+}
