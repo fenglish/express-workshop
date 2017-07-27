@@ -8,9 +8,8 @@ app.use(express.static("public"));
 app.use(formidable());
 
 app.post('/create-post', function (req, res) {
-
-	fs.readFile(__dirname + '/data/posts.json', function (error, file) {
-		let currentBlogPosts = JSON.parse(file);
+	fs.readFile(__dirname + '/data/posts.json', function (error, data) {
+		let currentBlogPosts = JSON.parse(data);
 		let timestamp = Date.now();
 		let newBlogPost = req.fields.blogpost;
 		currentBlogPosts[timestamp] = newBlogPost;
@@ -19,7 +18,6 @@ app.post('/create-post', function (req, res) {
 		fs.writeFile(__dirname + '/data/posts.json', allBlogPosts, function (error) {
 		});
 	});
-
 });
 
 app.get('/get-posts', function (req, res) {
@@ -27,7 +25,12 @@ app.get('/get-posts', function (req, res) {
 });
 
 app.get('/posts/:postId', function (req, res) {
-	res.send('post id: ' + req.params.postId);
+	fs.readFile(__dirname + '/data/posts.json', function (error, data) {
+		let allBlogPosts = JSON.parse(data);
+		var postId = req.params.postId - 1;
+		var targetKey = Object.keys(allBlogPosts)[postId]
+		res.send('Post id: ' + targetKey + ', Post content: ' + allBlogPosts[targetKey]);
+	});
 });
 
 app.listen(3000, function () {
