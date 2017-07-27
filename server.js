@@ -2,10 +2,15 @@ const express = require('express');
 const app = express();
 const formidable = require('express-formidable');
 const fs = require('fs');
+const mustacheExpress = require('mustache-express');
 
 
 app.use(express.static("public"));
 app.use(formidable());
+app.engine('mustache', mustacheExpress());
+app.set('view engine', 'mustache');
+app.set('views', __dirname + '/views');
+
 
 app.post('/create-post', function (req, res) {
 	fs.readFile(__dirname + '/data/posts.json', function (error, data) {
@@ -27,9 +32,10 @@ app.get('/get-posts', function (req, res) {
 app.get('/posts/:postId', function (req, res) {
 	fs.readFile(__dirname + '/data/posts.json', function (error, data) {
 		let allBlogPosts = JSON.parse(data);
-		var postId = req.params.postId - 1;
-		var targetKey = Object.keys(allBlogPosts)[postId]
-		res.send('Post id: ' + targetKey + ', Post content: ' + allBlogPosts[targetKey]);
+		let postId = req.params.postId - 1;
+		let targetKey = Object.keys(allBlogPosts)[postId];
+		let content = allBlogPosts[targetKey]
+		res.render('post', { post: content });
 	});
 });
 
